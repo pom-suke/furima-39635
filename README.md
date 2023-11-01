@@ -11,9 +11,7 @@
 | first_name         | string | null: false               |
 | kana_last_name     | string | null: false               |
 | kana_first_name    | string | null: false               |
-| birth_y            | date   | null: false               |
-| birth_m            | date   | null: false               |
-| birth_d            | date   | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 -has_many :items
@@ -22,23 +20,28 @@
 
 ## itemsテーブル
 
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| product         | string     | null: false                    |
-| describe        | text       | null: false                    |
-| category        | string     | null: false                    |
-| status          | string     | null: false                    |
-| pay_shipping    | string     | null: false                    |
-| ship_from       | string     | null: false                    |
-| until_shipping  | string     | null: false                    |
-| price           | integer    | null: false                    |
-| commission      | decimal    | null: false                    |
-| profit          | decimal    | null: false                    |
-| user            | references | null: false, foreign_key: true |
-
+| Column            | Type       | Options                        |
+| ----------------- | ---------- | ------------------------------ |
+| product           | string     | null: false                    |
+| describe          | text       | null: false                    |
+| category_id       | integer    | null: false                    |
+| status_id         | integer    | null: false                    |
+| pay_shipping_id   | integer    | null: false                    |
+| prefecture_id     | integer    | null: false                    |
+| until_shipping_id | integer    | null: false                    |
+| price             | integer    | null: false                    |
+| commission        | decimal    | null: false                    |
+| profit            | decimal    | null: false                    |
+| user              | references | null: false, foreign_key: true |
 ### Association
 -belongs_to :user
 -has_one :order
+### ActiveHash::Associations
+-belongs_to :category
+-belongs_to :status
+-belongs_to :pay_shipping
+-belongs_to :prefecture
+-belongs_to :until_shipping
 
 
 ## ordersテーブル
@@ -59,7 +62,7 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | post_code     | string     | null: false                    |
-| prefecture    | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
@@ -68,3 +71,5 @@
 
 ### Association
 -belongs_to :order
+### ActiveHash::Associations
+-belongs_to :prefecture

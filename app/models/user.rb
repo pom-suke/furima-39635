@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :orders
 
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
-  validates :nickname, presence: true
+  validates :nickname, presence: true, length: { maximum: 40 }
   validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥]+\z/ }, presence: true
   validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥]+\z/ }, presence: true
   validates :kana_last_name, format: { with: /\A[ァ-ヶー－]+\z/ }, presence: true

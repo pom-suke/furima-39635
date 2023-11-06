@@ -87,31 +87,43 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include "Email is invalid"
       end
-      it 'passwordは英字と数字両方含めないと登録できない' do
+      it 'passwordは英字のみでは登録できない' do
         @user.password = 'testtest'
         @user.password_confirmation = 'testtest'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password is invalid"
+        expect(@user.errors.full_messages).to include "Password には半角英数字の両方を含めて設定してください"
+      end
+      it 'passwordは数字のみでは登録できない' do
+        @user.password = '123456'
+        @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password には半角英数字の両方を含めて設定してください"
+      end
+      it 'passwordは全角文字を含めては登録できない' do
+        @user.password = 'Ｔest01'
+        @user.password_confirmation = 'Ｔest01'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password には半角英数字の両方を含めて設定してください"
       end
       it 'last_nameは全角(漢字・ひらがな・カタカナ)でないと登録できない' do
         @user.last_name = 'tanaka'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Last name is invalid"
+        expect(@user.errors.full_messages).to include "Last name 全角かな/カナ/漢字を使用してください"
       end
       it 'first_nameは全角(漢字・ひらがな・カタカナ)でないと登録できない' do
         @user.first_name = 'kouta'
         @user.valid?
-        expect(@user.errors.full_messages).to include "First name is invalid"
+        expect(@user.errors.full_messages).to include "First name 全角かな/カナ/漢字を使用してください"
       end
       it 'kana_last_nameは全角カタカナでないと登録できない' do
         @user.kana_last_name = 'たなか'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Kana last name is invalid"
+        expect(@user.errors.full_messages).to include "Kana last name 全角カナのみを使用してください"
       end
       it 'kana_first_nameは全角カタカナでないと登録できない' do
         @user.kana_first_name = 'こうた'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Kana first name is invalid"
+        expect(@user.errors.full_messages).to include "Kana first name 全角カナのみを使用してください"
       end
     end
   end

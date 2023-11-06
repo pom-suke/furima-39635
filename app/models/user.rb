@@ -4,14 +4,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :items
-  has_many :orders
+  # has_many :items
+  # has_many :orders
 
-  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  validates_format_of :password, with: PASSWORD_REGEX, message: 'には半角英数字の両方を含めて設定してください'
   validates :nickname, presence: true, length: { maximum: 40 }
-  validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥]+\z/ }, presence: true
-  validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥]+\z/ }, presence: true
-  validates :kana_last_name, format: { with: /\A[ァ-ヶー－]+\z/ }, presence: true
-  validates :kana_first_name, format: { with: /\A[ァ-ヶー－]+\z/ }, presence: true
+  with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: '全角かな/カナ/漢字を使用してください'} do
+    validates :last_name
+    validates :first_name
+  end
+  with_options presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: '全角カナのみを使用してください'} do
+    validates :kana_last_name
+    validates :kana_first_name
+  end
   validates :birthday, presence: true
 end

@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -8,7 +9,12 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :until_shipping
 
-  validates :product, :describe, presence: true
+  with_options presence: true do
+    validates :price, format: { with: /\A(?=.*?[\d])[\d]+\z/, message:'には半角数字を入力してください' }, allow_nil: true
+    validates :price, numericality: { only_integer: true, in: 300..9_999_999, message: 'には300円以上9,999,999円以下を入力してください' }
+    validates :product, length: { maximum: 40, message: 'には40文字までしか入力できません' }
+    validates :describe, length: { maximum: 1000, message: 'には1000文字までしか入力できません' }
+  end
 
   validates :category_id, :status_id, :pay_shipping_id, :prefecture_id, :until_shipping_id, numericality: { other_than: 1 , message: "can't be blank" }
 

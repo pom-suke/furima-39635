@@ -10,8 +10,9 @@ class Item < ApplicationRecord
   belongs_to :until_shipping
 
   with_options presence: true do
-    validates :price, format: { with: /\A(?=.*?[\d])[\d]+\z/, message:'には半角数字を入力してください' }, allow_nil: true
+    validates :image
     validates :price, numericality: { only_integer: true, in: 300..9_999_999, message: 'には300円以上9,999,999円以下を入力してください' }
+    validates :price, numericality: { with: /\A[0-9]+\z/, message:'には半角数字を入力してください' }, allow_blank: true
     validates :product, length: { maximum: 40, message: 'には40文字までしか入力できません' }
     validates :describe, length: { maximum: 1000, message: 'には1000文字までしか入力できません' }
   end

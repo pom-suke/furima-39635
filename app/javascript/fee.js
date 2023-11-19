@@ -7,7 +7,7 @@ function fee (){
       const calcAddTax = Math.floor(inputValue * 0.1)
       addTaxPrice.innerHTML = calcAddTax.toLocaleString()
       const profit = document.getElementById("profit")
-      profit.innerHTML = (inputValue - calcAddTax).toLocaleString()
+      profit.innerHTML = Math.floor(inputValue - calcAddTax).toLocaleString()
     })
   }
 }

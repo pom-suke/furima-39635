@@ -11,8 +11,7 @@ class Item < ApplicationRecord
 
   with_options presence: true do
     validates :image
-    validates :price, numericality: { only_integer: true, in: 300..9_999_999, message: 'には300円以上9,999,999円以下を入力してください' }
-    validates :price, numericality: { with: /\A[0-9]+\z/, message:'には半角数字を入力してください' }, allow_blank: true
+    validates :price, numericality: { only_integer: true, in: 300..9_999_999, message: 'には半角数字で300円以上9,999,999円以下を入力してください' }
     validates :product, length: { maximum: 40, message: 'には40文字までしか入力できません' }
     validates :describe, length: { maximum: 1000, message: 'には1000文字までしか入力できません' }
   end

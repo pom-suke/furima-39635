@@ -86,17 +86,17 @@ RSpec.describe Item, type: :model do
         @item.price = '９９９９'
         @item.save
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price には半角数字を入力してください"
+        expect(@item.errors.full_messages).to include "Price には半角数字で300円以上9,999,999円以下を入力してください"
       end
       it 'priceが299以下だと出品できない' do
         @item.price = '299'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price には300円以上9,999,999円以下を入力してください"
+        expect(@item.errors.full_messages).to include "Price には半角数字で300円以上9,999,999円以下を入力してください"
       end
       it 'priceが10000000以上だと出品できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price には300円以上9,999,999円以下を入力してください"
+        expect(@item.errors.full_messages).to include "Price には半角数字で300円以上9,999,999円以下を入力してください"
       end
       it 'productが41文字以上だと出品できない' do
         @item.product = Faker::Lorem.characters(number: 41)

@@ -6,10 +6,10 @@ class OrderAddress
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はハイフンを含めた半角数字で入力してください" }
     validates :city
     validates :house_number
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "は半角数字のみで入力してください" }
     validates :user_id
     validates :item_id
   end
-  validates :phone_number, length: { in: 10..11 }, numericality: { only_integer: true, message: "は半角数字のみで入力してください" }
   validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank" }
 
   def save

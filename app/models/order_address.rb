@@ -6,7 +6,6 @@ class OrderAddress
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はハイフンを含めた半角数字で入力してください" }
     validates :city
     validates :house_number
-    validates :order_id
     validates :user_id
     validates :item_id
   end

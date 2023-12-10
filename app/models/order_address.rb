@@ -6,7 +6,7 @@ class OrderAddress
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: "はハイフンを含めた半角数字で入力してください" }
     validates :city
     validates :house_number
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "は半角数字のみで入力してください" }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "は10から11桁の半角数字のみで入力してください" }
     validates :user_id
     validates :item_id
     validates :token

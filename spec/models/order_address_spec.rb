@@ -59,28 +59,27 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Item can't be blank"
       end
-      it 'post_codeは「3桁ハイフン4桁」の半角文字列のみで入力しないと購入できない' do
-        # ハイフンがない場合
+      it 'post_codeはハイフンがない場合購入できない' do
         @order_address.post_code = '1239876'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Post code はハイフンを含めた半角数字で入力してください"
-
-        # ハイフンの位置が異なる場合
+      end
+      it 'post_codeはハイフンの位置が異なる場合購入できない' do
         @order_address.post_code = '1239-876'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Post code はハイフンを含めた半角数字で入力してください"
-
-        # 文字数が足りない場合
+      end
+      it 'post_codeは文字数が足りない場合購入できない' do
         @order_address.post_code = '12-9876'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Post code はハイフンを含めた半角数字で入力してください"
-
-        # 文字数が多い場合
+      end
+      it 'post_codeは文字数が多い場合購入できない' do
         @order_address.post_code = '123-98765'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Post code はハイフンを含めた半角数字で入力してください"
-
-        # 数字以外が含まれている場合
+      end
+      it 'post_codeは数字以外が含まれている場合購入できない' do
         @order_address.post_code = '12O-9876'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Post code はハイフンを含めた半角数字で入力してください"

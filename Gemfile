@@ -81,7 +81,7 @@ end
 gem 'pry-rails'
 
 group :production do
-  gem 'pg'
+  gem 'mariadb'
   gem 'unicorn', '6.1.0'
 end
 
